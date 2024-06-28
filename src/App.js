@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
+  const todos = useSelector((state) => state.todos.tasks);
+  const dispatch = useDispatch();
+  const [text, setText] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input onChange={(e) => setText(e.target.value)} />
+      <ul>
+        {todos.map((task, index) => (
+          <li key={index}>{task.title}</li>
+        ))}
+      </ul>
+      {/* dispatch(addTask(text)) */}
+      <button onClick={() => alert(text)}>Create todo</button>
     </div>
   );
 }
